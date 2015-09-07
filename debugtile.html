@@ -1,0 +1,20 @@
+<!DOCTYPE html><html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Leaflet Tile Size Test</title>
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+</head><body>
+  <iframe id="preview" src="about:blank" style="
+    width: 300px;
+    height: 300px;
+    border: 0px solid black;
+    background: gainsboro;
+    "></iframe>
+  <p><pre id="svg-src"></pre></p>
+  <script src="lib_demos.js"></script>
+  <script>(function (doc) {
+    var url = llDemo.genDebugTileSvg({ fmt: 'url' }), svg;
+    doc.getElementById('preview').src = url;
+    svg = decodeURIComponent(url.replace(/^\S+,/, ''));
+    doc.getElementById('svg-src').appendChild(document.createTextNode(svg));
+  }(document));</script>
+</body></html>
