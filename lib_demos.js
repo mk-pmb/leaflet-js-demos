@@ -5,6 +5,11 @@
   var EX = {}, L = window.L;
   window.llDemo = EX;
 
+  EX.jsSrcUrl = (function detectCurrentScriptTag() {
+    var scriptTags = document.getElementsByTagName('script');
+    return scriptTags[scriptTags.length - 1];
+  }()).src;
+
   EX.jsonDeepCopy = function (obj) { return JSON.parse(JSON.stringify(obj)); };
 
   EX.svgExtend = function (tmpl) {

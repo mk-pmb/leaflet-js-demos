@@ -10,12 +10,18 @@
   </style>
 </head><body>
 
-<aside><div class="map" id="map1"></div></aside>
+<div class="map" id="map1"></div>
+<p>lib_demos.js = <a id="lib-demos-url"></a></p>
 
 <script src="/404/prepare-js.cgi?for=leaflet-0.7.5/leaflet.js"></script>
 <script src="/404/js-addons-for/leaflet-0.7.5/leaflet.js"></script>
 <script src="//cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
 <script src="lib_demos.js"></script>
+<script>(function () {
+  var lnk = document.getElementById('lib-demos-url');
+  lnk.href = window.llDemo.jsSrcUrl;
+  lnk.appendChild(document.createTextNode(lnk.href));
+}());</script>
 <script src="tilesize.js"></script>
 
 </body></html>
