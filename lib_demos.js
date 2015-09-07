@@ -67,8 +67,8 @@
       '</g>',
       ''].join('\n')).replace(/[\s\n]+(\n)/g, '$1');
     if (opts.caption !== '') {
-      svg += EX.svgExtend('{text y=22%}') +
-        (opts.caption || '{x} : {y} @ {z}') + '</text>\n';
+      svg += EX.svgExtend('{text y=22%}{text y=82%}').replace(/>/g,
+        '>' + (opts.caption || '{x} : {y} @ {z}') + '</text>\n');
     }
     if (opts.tileSize) {
       svg += EX.svgExtend('{text y=33%}tileSize=') +
