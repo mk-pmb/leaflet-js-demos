@@ -6,6 +6,22 @@ aside { float: left; margin: 20px; }
 .map, iframe {
   width: 500px;
   height: 350px;
-  border: 1px solid gray;
-  background: gainsboro;
+  background-color: gainsboro;
+}
+
+.map, iframe, #leaflet-version { border: 1px solid gray; }
+
+
+#leaflet-version {
+  display: block;
+  float: right;
+  position: fixed;
+  top: 0em;
+  right: 0em;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  background-color: whitesmoke;
+  color: gray;
+  padding: 0.5ex 0.5em;
+  margin: 0em;
 }

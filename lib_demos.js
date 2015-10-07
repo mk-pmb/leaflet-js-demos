@@ -5,6 +5,19 @@
   var EX = {}, L = window.L;
   window.llDemo = EX;
 
+
+  (function showLeafletVersion() {
+    var id = 'leaflet-version', elem = document.getElementById(id);
+    if (!elem) {
+      elem = document.createElement('div');
+      elem.id = id;
+      document.getElementsByTagName('body')[0].appendChild(elem);
+    }
+    elem.innerHTML = '';
+    elem.appendChild(document.createTextNode(String(L.version)));
+  }());
+
+
   EX.jsSrcUrl = (function detectCurrentScriptTag() {
     var scriptTags = document.getElementsByTagName('script');
     return scriptTags[scriptTags.length - 1];
