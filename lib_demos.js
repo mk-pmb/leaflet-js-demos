@@ -93,9 +93,9 @@
 
 
   EX.genDebugTileLayer = function (opts) {
-    var urlPtn, layerOpts = { attribution: '', maxZoom: 9001 };
+    var layerOpts = { attribution: '', maxZoom: 9001 };
     opts = Object.create(opts || null);
-    ['tileSize', 'extraSvg'
+    ['tileSize', 'extraSvg', 'zoomOffset'
       ].map(function (opt) { if (opts[opt]) { layerOpts[opt] = opts[opt]; } });
     // console.log('genDebugTileLayer', opts, layerOpts);
     opts.fmt = 'url';
@@ -103,7 +103,22 @@
   };
 
 
-
+  EX.latlon2tilefrac = function latlon2tilefrac(zoom, lat, lon) {
+    var axisLen = Math.pow(2, zoom), tile = [],
+      latAngle;
+    if (('number' !== typeof lon) && lat && ('number' === typeof lat[1])) {
+      lon = lat[1];
+      lat = lat[0];
+    }
+    tile[0] = tile.x = ((lon + 180) * axisLen) / 360;
+    latAngle = (lat * Math.PI) / 180;
+    tile[1] = tile.y = (1 -
+      (Math.log(
+        Math.tan(latAngle) + (1 / Math.cos(latAngle))
+      ) / Math.PI)
+      ) * 0.5 * axisLen;
+    return tile;
+  };
 
 
 
