@@ -23,23 +23,19 @@
   tileMarks['262:171@9'] = '{circle cx=19% cy=75% fill=yellow /}';
 
   function initMap(map) {
-    var brussels = [50.8465565, 4.351697], tileOpts = {}, zoomLevel = 8,
-      effects;
+    var brussels = [50.8465565, 4.351697], tileOpts = {}, mapOpts, effects;
+    mapOpts = { center: brussels, zoom: 8,
+      attributionControl: true, zoomControl: true, };
     if ('string' === typeof map) { map = document.getElementById(map); }
-    effects = (String(map.id || '') + '  ' + String(map.className || '')
-      ).replace(/^|$|[\s\n+]/g, '  ');
 
-    effects.replace(/ tilesize-(\d+) /,
-      function (m, ts) { tileOpts.tileSize = Number(m && ts); });
-    effects.replace(/ zoomoffset-(-?\d+) /,
-      function (m, ts) { tileOpts.zoomOffset = Number(m && ts); });
-    effects.replace(/ zoomlevel-(\d+) /,
-      function (m, ts) { zoomLevel = Number(m && ts); });
+    effects = llDemo.dashOpts([map.id, map.className]);
+    effects.scanNum(/ tilesize-(\d+) /, tileOpts, 'tileSize');
+    effects.scanNum(/ zoomoffset-(\-?\d*\-?\d+) /, tileOpts, 'zoomOffset');
+    effects.scanNum(/ zoomlevel-(\d*\-?\d+) /, mapOpts, 'zoom');
 
-    effects = { zoom: zoomLevel, tileOpts: tileOpts };
+    effects = { zoom: mapOpts.zoom, tiles: tileOpts };
     effects = JSON.stringify(effects, null, 2).replace(/[\n\s]+/g, ' ');
-    map = L.map(map.id, { center: brussels, zoom: zoomLevel,
-      attributionControl: true, zoomControl: true, });
+    map = L.map(map.id, mapOpts);
     map.attributionControl.setPrefix(effects);
     tileOpts.extraSvg = tileMarks;
     llDemo.genDebugTileLayer(tileOpts).addTo(map);

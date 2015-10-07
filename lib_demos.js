@@ -121,6 +121,23 @@
   };
 
 
+  EX.dashOpts = function (opts) {
+    var dashStr = opts;
+    if ('string' !== typeof dashStr) {
+      dashStr = dashStr.map(function (x) { return String(x || ''); }).join(' ');
+    }
+    dashStr = String(dashStr).replace(/^|$|[\s\n+]/g, '  ');
+    opts = {};
+    opts.scanNum = function dashOptsScanNum(rgx, destObj, destKey) {
+      dashStr.replace(rgx, function (match, num) {
+        num = match && Number(num.replace(/(\d)-(\d)/, '$1.$2'));
+        destObj[destKey] = num;
+      });
+    };
+    return opts;
+  };
+
+
 
 
 
