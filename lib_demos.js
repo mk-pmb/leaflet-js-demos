@@ -6,6 +6,12 @@
   window.llDemo = EX;
 
 
+  EX.locations = {
+    hobart: [-42.866667, 147.316667],
+    brussels: [50.8465565, 4.351697],
+  };
+
+
   (function showLeafletVersion() {
     var id = 'leaflet-version', elem = document.getElementById(id);
     if (!elem) {
@@ -130,6 +136,7 @@
         Math.tan(latAngle) + (1 / Math.cos(latAngle))
       ) / Math.PI)
       ) * 0.5 * axisLen;
+    tile.name = Math.floor(tile.x) + ':' + Math.floor(tile.y) + '@' + zoom;
     return tile;
   };
 
@@ -141,10 +148,16 @@
     }
     dashStr = String(dashStr).replace(/^|$|[\s\n+]/g, '  ');
     opts = {};
+    opts.scanStr = function dashOptsScanNum(rgx, destObj, destKey) {
+      dashStr.replace(rgx, function (match, val) {
+        val = match && val;
+        destObj[destKey] = val;
+      });
+    };
     opts.scanNum = function dashOptsScanNum(rgx, destObj, destKey) {
-      dashStr.replace(rgx, function (match, num) {
-        num = match && Number(num.replace(/(\d)-(\d)/, '$1.$2'));
-        destObj[destKey] = num;
+      dashStr.replace(rgx, function (match, val) {
+        val = match && Number(val.replace(/(\d)-(\d)/, '$1.$2'));
+        destObj[destKey] = val;
       });
     };
     return opts;
